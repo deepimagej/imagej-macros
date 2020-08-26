@@ -8,24 +8,17 @@
 // ----------------------------------------------------------------------------------------------
 
 // clip the range of values to the [0,1] range
-getStatistics(area, mean, min, max, std, histogram);
-run("Subtract...", "value="+min);
+getStatistics(_, _, min, max, _, _);
+run("Subtract...", "value=" + min);
 diff = max - min + 1e-20
-run("Divide...", "value="+diff);
+run("Divide...", "value=" + diff);
 
 // Convert the image to 8-bit
-run("Multiply...", "value="+255);
-run("Window/Level...");
+run("Multiply...", "value=" + 255);
 setMinAndMax(0, 255);
-selectWindow("W&L");
-run("Close");
 run("8-bit");
 
 // Threshold the output.
-OptimalThreshold = 159
-setAutoThreshold("Default dark");
-setThreshold(OptimalThreshold, 255);
+optimalThreshold = 159
+setThreshold(optimalThreshold, 255);
 run("Convert to Mask");
-
-
-
