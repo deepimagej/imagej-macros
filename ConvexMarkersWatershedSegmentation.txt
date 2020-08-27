@@ -11,6 +11,14 @@
 // 						E. Gomez-de-Mariscal, C. Garcia-Lopez-de-Haro, et al., bioRxiv 2019.
 // ----------------------------------------------------------------------------------------------
 
+// Run these lines when using the output of Mu-Lux-CZ trained model. Otherwise, omit them
+rename("resultImage");
+run("Split Channels");
+selectWindow("C1-resultImage");
+close();
+selectWindow("C3-resultImage");
+close();
+
 // PARAMETERS
 // 'PhC-C2DL-PSC':
 //erosion_size = 1;
