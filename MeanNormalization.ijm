@@ -17,7 +17,7 @@ run("Divide...", "value=" + diff);
 setMinAndMax(0, 1);
 
 // mean normalization
-paramMean = 0.23325787
-paramStd = 0.15511274
+paramMean = 0.23325787;
+paramStd = 0.15511274;
 run("Subtract...", "value="+paramMean);
 run("Divide...", "value="+paramStd);
