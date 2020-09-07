@@ -14,7 +14,8 @@ neighborhood_size = 3;
 pixelSize = 12; // in nm and after upsampling
 
 function createThuderSTORMtable(slice, imageName, thresh, pixelSize, row) { 
-// This function creates a table with columns frame, x [nm], y [nm], P
+// This function creates a table with columns frame, x [nm], y [nm], P in a "brutal" manner.
+// TODO: find some plugin that could do it.
 	selectImage(imageName);
 	// row=0;
 	w=getWidth();
@@ -31,8 +32,8 @@ function createThuderSTORMtable(slice, imageName, thresh, pixelSize, row) {
 	         }
 	     }
 	}
-	return row;
 	updateResults();
+	return row;
 }
 
 //  Get the name of the image
