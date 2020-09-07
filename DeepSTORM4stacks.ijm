@@ -1,6 +1,6 @@
 //*******************************************************************
 // Date: September-2020
-// Credits: DeepImageJ
+// Credits: ZeroCostDL4Mic, DeepImageJ
 // URL: 
 // 		https://github.com/HenriquesLab/ZeroCostDL4Mic/wiki
 // 		https://deepimagej.github.io/deepimagej
