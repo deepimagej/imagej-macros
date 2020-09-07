@@ -1,8 +1,19 @@
+// ----------------------------------------------------------------------------------------------
+// This macro finds the local maxima of an image that is lower than a certain threshold. It first
+// computes a maxPooling of the image with a kernel of size 3x3. Then it filters out all the
+// maximum points apearing also in the initial image. Finally, it filters out all the values below
+// a certain threshold. 
+// Credits:
+// - DeepImageJ team:
+// 		- Reference: "DeepImageJ: A user-friendly plugin to run deep learning models in ImageJ, 
+// 						E. Gomez-de-Mariscal, C. Garcia-Lopez-de-Haro, et al., bioRxiv 2019.
+// ----------------------------------------------------------------------------------------------
+
 // PARAMS BY DEFAULT (same variables in the notebook)
 // If condition acts as >= rather than >
 thresh = 0.10 + 0.0001;
 neighborhood_size = 3;
-pixelSize = 12; // in nm and after upsampling
+
 //-------------------------------------------------------
 rename("rawOutput");
 // Remove negative values from the image
@@ -36,6 +47,7 @@ close();
 
 
 // Add the following lines to the macro that processes the entire stack
+// pixelSize = 12; // in nm and after upsampling
 //selectWindow("filteredProbability");
 // One chance of finding a maxima just with the threshold
 // run("Find Maxima...", "prominence=0.10 strict output=List");
