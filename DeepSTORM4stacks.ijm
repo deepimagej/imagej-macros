@@ -13,14 +13,6 @@ thresh = 0.10 + 0.001;
 neighborhood_size = 3;
 pixelSize = 12; // in nm and after upsampling
 
-//  Get the name of the image
-rename("input_stack");
-
-//  Get the dimensions of the image, specially for the z-slices
-getDimensions(w, h, channels, slices, frames);
-
-
-
 function createThuderSTORMtable(slice, imageName, thresh, pixelSize, row) { 
 // This function creates a table with columns frame, x [nm], y [nm], P
 	selectImage(imageName);
@@ -43,6 +35,11 @@ function createThuderSTORMtable(slice, imageName, thresh, pixelSize, row) {
 	updateResults();
 }
 
+//  Get the name of the image
+rename("input_stack");
+
+//  Get the dimensions of the image, specially for the z-slices
+getDimensions(w, h, channels, slices, frames);
 //  A z-slice is stracted and processed with DeepImageJ plugin.
 // When all the z-slices are processed, they are concatenated to create the processed 3D stack.
 row = 0;
