@@ -61,7 +61,7 @@ close();
 //         if (v>thresh){
 //         setResult("x [nm]",row,x*pixelSize);
 //         setResult("y [nm]",row,y*pixelSize);
-//         setResult("P(photon)",row,v);
+//         setResult("confidence [a.u]",row,v);
 //         row++;
 //         }
 //     }
