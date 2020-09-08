@@ -47,6 +47,7 @@ close();
 
 // Create a csv file with the localizations and confidence values
 // (brutal code with loops).
+// ----------------------------------------------------------------------------------------------
 // The loop filters low confidence values as well.
 selectWindow("filteredConfidence");
 // One chance of finding a maxima localization just with the threshold
