@@ -59,10 +59,9 @@ for(x=0;x<w;x++){
      for(y=0;y<h;y++){
          v=getPixel(x,y);
          if (v<thresh){
-			setPixel(x, y, 0.00);
+		setPixel(x, y, 0.00);
          }
          else {
-			setResult("local id",row,row+1);	
 	        setResult("frame",row,1);
 	        setResult("x [nm]",row,x*pixelSize);
 	        setResult("y [nm]",row,y*pixelSize);
