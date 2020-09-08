@@ -27,7 +27,7 @@ function createThuderSTORMtable(slice, imageName, thresh, pixelSize, row) {
 	         setResult("frame",row,slice);
 	         setResult("x [nm]",row,x*pixelSize);
 	         setResult("y [nm]",row,y*pixelSize);
-	         setResult("P(photon)",row,v);
+	         setResult("confidence [a.u]",row,v);
 	         row++;
 	         }
 	     }
