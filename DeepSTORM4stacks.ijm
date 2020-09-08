@@ -7,77 +7,91 @@
 //*******************************************************************
 //  Macro to run a DeepSTORM trained model recursively 
 //  to each of the slices of one SMLM stack. 
+//  DeepImageJ and ThunderSTORM plugin need to be installed
 //*******************************************************************
-// PARAMS BY DEFAULT (same variables in the notebook)
-thresh = 0.10 + 0.001;
-neighborhood_size = 3;
-pixelSize = 12; // in nm and after upsampling
 
-function createThuderSTORMtable(slice, imageName, thresh, pixelSize, row) { 
-// This function creates a table with columns frame, x [nm], y [nm], P in a "brutal" manner.
-// TODO: find some plugin that could do it.
-	selectImage(imageName);
-	// row=0;
-	w=getWidth();
-	h=getHeight();
-	for(x=0;x<w;x++){
-	     for(y=0;y<h;y++){
-	         v=getPixel(x,y);
-	         if (v>thresh){
-	         setResult("frame",row,slice);
-	         setResult("x [nm]",row,x*pixelSize);
-	         setResult("y [nm]",row,y*pixelSize);
-	         setResult("confidence [a.u]",row,v);
-	         row++;
-	         }
-	     }
-	}
-	updateResults();
-	return row;
-}
+// PARAMS BY DEFAULT (same variables in the notebook)
+// thresh = 0.10 + 0.001;
+// neighborhood_size = 3;
+// pixelSize = 12; // in nm and after upsampling
+
+// Choose a directory to store all the results
+workingDir = getDirectory("Choose a directory to store your results");
+tablesDir = workingDir + File.separator + "localization_csv_files";
+File.makeDirectory(tablesDir);
+
+// workingDir = "/media/esgomezm/sharedisk/Documents/BiiG/DeepImageJ/DeepSTORM/thunderstorm_results/"
+modelName = "DeepSTORM - ZeroCostDL4Mic - new";
 
 //  Get the name of the image
 rename("input_stack");
-
 //  Get the dimensions of the image, specially for the z-slices
 getDimensions(w, h, channels, slices, frames);
-//  A z-slice is stracted and processed with DeepImageJ plugin.
-// When all the z-slices are processed, they are concatenated to create the processed 3D stack.
-row = 0;
+print("Processing stack of "+ slices + " frames.");
+// Remove setBacthMode to see the processing
+setBatchMode(true);
 for (i = 1; i < slices+1; i++) {
 	
 	// Select the volume
 	selectImage("input_stack");
 	
 	// Extract one single z-slice
-	run("Make Substack...", "channels=1-2 slices="+i);
+	run("Make Substack...", " slices="+i);
 	
 	// Rename the z-slice
 	selectImage("Substack ("+i+")");	
 	
-	// Process the z-slice with CARE Isotropic Reconstruction
-	run("DeepImageJ Run", "model=[DeepSTORM - ZeroCostDL4Mic] preprocessing=preprocessing.ijm postprocessing=postprocessing.ijm patch=512 overlap=5 logging=normal");
-	rename("output-"+i);
-
+	// Process each 2D frame with DeepSTORM (check patch and overlap values in the config file)
+	run("DeepImageJ Run", "model=[" + modelName + "] preprocessing=preprocessing.ijm postprocessing=postprocessing.ijm patch=512 overlap=0 logging=normal");
+	
 	// Create a table with the coordinates of the local maxima and their value in the output
-	row = createThuderSTORMtable(i, "output-"+i, thresh, pixelSize, row);
-	saveAs("Results", "/media/esgomezm/sharedisk/Documents/BiiG/DeepImageJ/DeepSTORM/results.csv");
+	selectWindow("Results");
+	saveAs("Results", tablesDir + File.separator + "results_" + i + ".csv");
+	run("Close");
+	
 	// Save the names of the z-slices to concatenate them into a new stack
 	if (i==1) {
 		// Create a table with the coordinates of the local maxima and their value in the output
-		selectImage("output-"+i);
+		selectImage("normalizedConfidence");
 		rename("totalSum");
-	} else {
-		imageCalculator("Add", "totalSum","output-"+i);
-		selectImage("output-"+i);
+		selectImage("filteredConfidence");
+		rename("filteredSum");
+	}
+	else {
+		imageCalculator("Add", "filteredSum","filteredConfidence");
+		imageCalculator("Add", "totalSum","normalizedConfidence");
+		// Close all unncessary images
+		selectImage("filteredConfidence");
+		close();
+		selectImage("normalizedConfidence");
 		close();
 	}
-	
-	// Close the input z-slice
+	// Close all unncessary images
 	selectImage("Substack ("+i+")");
 	close();
 	selectImage("upsampled_input");
-	close();
-	
-	}
+	close();	
+	print("Frame "+ i + " finished");
+}
+selectImage("totalSum");
+saveAs("Tiff", workingDir + "totalSum.tif");
+selectImage("filteredSum");
+saveAs("Tiff", workingDir + "filteredSum.tif");
+print("The results are stored in\n" + workingDir);
 
+// Create a Thunderstorm table
+//-----------------------------------------------------
+thTable = getBoolean("Create ThunderSTORM table");
+if (thTable == 1){
+	close("*");	
+	print("Creating a ThunderSTORM table from\n"+workingDir);
+	// Display info about the files
+  	list = getFileList(tablesDir);
+  	run("Import results", "filepath=" + tablesDir + File.separator + "results_1.csv fileformat=[CSV (comma separated)] livepreview=false rawimagestack= startingframe=1 append=true");
+  	for (i=2; i<list.length+1; i++){
+		run("Import results", "filepath=" + tablesDir + File.separator + "results_"+i+".csv fileformat=[CSV (comma separated)] livepreview=false rawimagestack= startingframe=" + i +" append=true");
+		// Export the table everytime we add info about a new frame
+		run("Export results", "filepath=" + workingDir + File.separator + "ThunderSTORMtable.csv fileformat=[CSV (comma separated)] =false saveprotocol=true confidence=true x=true y=true local=false id=true frame=true");
+	}
+	print("Process finished");
+}
