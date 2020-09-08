@@ -1,8 +1,7 @@
 // ----------------------------------------------------------------------------------------------
 // This macro finds the local maxima of an image that is lower than a certain threshold. It first
-// computes a maxPooling of the image with a kernel of size 3x3. Then it filters out all the
-// maximum points apearing also in the initial image. Finally, it filters out all the values below
-// a certain threshold. 
+// computes a maxPooling of the image. Then it filters out all the maximum points apearing also 
+// in the initial image. Finally, it filters out all the values below a certain threshold. 
 // Credits:
 // - DeepImageJ team:
 // 		- Reference: "DeepImageJ: A user-friendly plugin to run deep learning models in ImageJ, 
