@@ -13,11 +13,9 @@
 workingDir = getDirectory("Choose a directory to store your results");
 tablesDir = workingDir + File.separator + "localization_csv_files";
 File.makeDirectory(tablesDir);
-
 modelName = "DeepSTORM - ZeroCostDL4Mic - new";
 postprocessing_type ="postprocessing_AveragedMaximaSMLM.ijm";
-
-//  Get the name of the image
+//  Change the name of the image
 rename("input_stack");
 //  Get the dimensions of the image, specially for the z-slices
 getDimensions(w, h, channels, slices, frames);
