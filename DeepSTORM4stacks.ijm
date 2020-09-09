@@ -11,9 +11,9 @@
 //*******************************************************************
 
 // PARAMS BY DEFAULT (same variables in the notebook)
-// thresh = 0.10 + 0.001;
-// neighborhood_size = 3;
-// pixelSize = 12; // in nm and after upsampling
+thresh = 0.10 + 0.001;
+neighborhood_size = 3;
+pixelSize = 12.5; // in nm and after upsampling
 
 // Choose a directory to store all the results
 workingDir = getDirectory("Choose a directory to store your results");
@@ -42,7 +42,8 @@ for (i = 1; i < slices+1; i++) {
 	selectImage("Substack ("+i+")");	
 	
 	// Process each 2D frame with DeepSTORM (check patch and overlap values in the config file)
-	run("DeepImageJ Run", "model=[" + modelName + "] preprocessing=preprocessing.ijm postprocessing=postprocessing.ijm patch=512 overlap=0 logging=normal");
+	// change the name of the post-processing for a regular local maxima finder
+	run("DeepImageJ Run", "model=[" + modelName + "] preprocessing=preprocessing.ijm postprocessing=postprocessing_AveragedMaximaSMLM.ijm patch=512 overlap=0 logging=normal");
 	
 	// Create a table with the coordinates of the local maxima and their value in the output
 	selectWindow("Results");
