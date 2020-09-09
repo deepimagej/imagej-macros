@@ -9,19 +9,13 @@
 //  to each of the slices of one SMLM stack. 
 //  DeepImageJ and ThunderSTORM plugin need to be installed
 //*******************************************************************
-
-// PARAMS BY DEFAULT (same variables in the notebook)
-thresh = 0.10 + 0.001;
-neighborhood_size = 3;
-pixelSize = 12.5; // in nm and after upsampling
-
 // Choose a directory to store all the results
 workingDir = getDirectory("Choose a directory to store your results");
 tablesDir = workingDir + File.separator + "localization_csv_files";
 File.makeDirectory(tablesDir);
 
-// workingDir = "/media/esgomezm/sharedisk/Documents/BiiG/DeepImageJ/DeepSTORM/thunderstorm_results/"
 modelName = "DeepSTORM - ZeroCostDL4Mic - new";
+postprocessing_type ="postprocessing_AveragedMaximaSMLM.ijm";
 
 //  Get the name of the image
 rename("input_stack");
@@ -43,7 +37,7 @@ for (i = 1; i < slices+1; i++) {
 	
 	// Process each 2D frame with DeepSTORM (check patch and overlap values in the config file)
 	// change the name of the post-processing for a regular local maxima finder
-	run("DeepImageJ Run", "model=[" + modelName + "] preprocessing=preprocessing.ijm postprocessing=postprocessing_AveragedMaximaSMLM.ijm patch=512 overlap=0 logging=normal");
+	run("DeepImageJ Run", "model=[" + modelName + "] preprocessing=preprocessing.ijm postprocessing=" + postprocessing_type + " patch=512 overlap=0 logging=normal");
 	
 	// Create a table with the coordinates of the local maxima and their value in the output
 	selectWindow("Results");
