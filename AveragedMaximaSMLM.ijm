@@ -1,20 +1,18 @@
 // ----------------------------------------------------------------------------------------------
-// This macro finds the local maxima of an image that is lower than a certain threshold. It first
-// computes a maxPooling of the image with a kernel of size 3x3. Then it filters out all the
-// maximum points apearing also in the initial image. Finally, it filters out all the values below
-// a certain threshold. 
+// This macro finds the local maxima of an image that is lower than a certain threshold and 
+// estimtes the center of gravity for each maxima. Results are provided as a 2D image and a table.
+// This code is a replication the post-processing at Deep-STORM_2D_ZeroCostDL4Mic notebook.
 // Credits:
-// - DeepImageJ team:
-// 		- Reference: "DeepImageJ: A user-friendly plugin to run deep learning models in ImageJ, 
-// 						E. Gomez-de-Mariscal, C. Garcia-Lopez-de-Haro, et al., bioRxiv 2019.
+// - ZeroCostDL4Mic: Lucas von Chamier, et al., bioRxiv 2020.
+// - DeepImageJ: E. Gomez-de-Mariscal, C. Garcia-Lopez-de-Haro, et al., bioRxiv 2019.
 // ----------------------------------------------------------------------------------------------
 
 // PARAMS BY DEFAULT (same variables in the notebook)
 // If condition acts as >= rather than >
-thresh = 0.1;
-L2_weighting_factor = 170.20995438407405;
+thresh = 0.10;
+L2_weighting_factor = 170.21;
 neighborhood_size = 3;
-pixelSize = 12.5; // in nm and after upsampling
+pixelSize = 12; // in nm and after upsampling
 //-------------------------------------------------------
 
 rename("normalizedConfidence");
