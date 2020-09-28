@@ -93,7 +93,7 @@ for(x=0;x<w;x++){
 	        setResult("frame",row,1);
 	        setResult("x [nm]",row,(x+x_local)*pixelSize);
 	        setResult("y [nm]",row,(y+y_local)*pixelSize);
-	        setResult("confidence [a.u]",row,sumV);
+	        setResult("confidence [a.u.]",row,sumV);
 	        row++;
          }
      }
