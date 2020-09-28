@@ -13,15 +13,14 @@
 workingDir = getDirectory("Choose a directory to store your results");
 tablesDir = workingDir + File.separator + "localization_csv_files";
 File.makeDirectory(tablesDir);
-modelName = "DeepSTORM - ZeroCostDL4Mic";
-postprocessing_type ="postprocessing_AveragedMaximaSMLM.ijm";
+modelName = "DeepSTORM - ZeroCostDL4Mic - Elias";
+postprocessing_type = "postprocessing_LocalMaximaSMLM.ijm"; //"postprocessing_AveragedMaximaSMLM.ijm";
 //  Change the name of the image
 rename("input_stack");
 //  Get the dimensions of the image, specially for the z-slices
 getDimensions(w, h, channels, slices, frames);
 print("Processing stack of "+ slices + " frames.");
-// Remove setBacthMode to see the processing
-setBatchMode(true);
+
 for (i = 1; i < slices+1; i++) {
 	
 	// Select the volume
@@ -40,7 +39,7 @@ for (i = 1; i < slices+1; i++) {
 	// Create a table with the coordinates of the local maxima and their value in the output
 	selectWindow("Results");
 	saveAs("Results", tablesDir + File.separator + "results_" + i + ".csv");
-	run("Close");
+	close("Results");
 	
 	// Save the names of the z-slices to concatenate them into a new stack
 	if (i==1) {
@@ -54,16 +53,12 @@ for (i = 1; i < slices+1; i++) {
 		imageCalculator("Add", "filteredSum","filteredConfidence");
 		imageCalculator("Add", "totalSum","normalizedConfidence");
 		// Close all unncessary images
-		selectImage("filteredConfidence");
-		close();
-		selectImage("normalizedConfidence");
-		close();
+		close("filteredConfidence");
+		close("normalizedConfidence");
 	}
 	// Close all unncessary images
-	selectImage("Substack ("+i+")");
-	close();
-	selectImage("upsampled_input");
-	close();	
+	close("Substack ("+i+")");
+	close("upsampled_input");	
 	print("Frame "+ i + " finished");
 }
 selectImage("totalSum");
