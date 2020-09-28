@@ -40,8 +40,7 @@ run("Divide...", "value=255");
 // Recover confidence values
 imageCalculator("Multiply", "filteredConfidence","maxPooling");
 // run("Min...", "value=" + thresh); // remove everything below thresh
-selectWindow("maxPooling");
-close();
+close("maxPooling");
 
 // Create a csv file with the localizations and confidence values
 // (brutal code with loops).
