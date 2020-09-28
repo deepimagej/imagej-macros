@@ -40,8 +40,7 @@ run("Divide...", "value=255");
 // Recover confidence values
 imageCalculator("Multiply", "filteredConfidence","maxPooling");
 // run("Min...", "value=" + thresh); // remove everything below thresh
-selectWindow("maxPooling");
-close();
+close("maxPooling");
 
 // Create a csv file with the localizations and confidence values
 // (brutal code with loops).
@@ -64,7 +63,7 @@ for(x=0;x<w;x++){
 	        setResult("frame",row,1);
 	        setResult("x [nm]",row,x*pixelSize);
 	        setResult("y [nm]",row,y*pixelSize);
-	        setResult("confidence [a.u]",row,v);
+	        setResult("confidence [a.u.]",row,v);
 	        row++;
          }
      }
