@@ -25,8 +25,18 @@ min_percentile = 0.01;
 max_percentile = 0.998;
 nBins = 256; // the larger the more accurate
 
-function percentile_normalization(min_percentile, max_percentile, nBins){
-	
+getDimensions(width, height, channels, slices, frames);	
+if (slices==1){
+	axes = 'xy';
+}
+else {
+	axes = 'xyz';
+}
+print("Percentile normalization to the axes: " + axes);
+print("with min_percentile: " + min_percentile);
+print("and max_percentile: " + max_percentile);
+
+function percentile_normalization(min_percentile, max_percentile, nBins){	
 	//initialize the histogram
 	cumHist = newArray(nBins);
 	//move through each slice of the image to obtain the whole histogram
@@ -69,8 +79,7 @@ function percentile_normalization(min_percentile, max_percentile, nBins){
 	diff = ma-mi+1e-20; // add epsilon to avoid 0-divisions
 	run("32-bit");
 	run("Subtract...", "value="+mi+" stack");
-	run("Divide...", "value="+diff+" stack");
-	
+	run("Divide...", "value="+diff+" stack");	
 }
 
 // EXECUTE THE FUNCTION TO THE WHOLE IMAGE
