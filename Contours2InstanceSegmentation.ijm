@@ -1,3 +1,16 @@
+
+// ----------------------------------------------------------------------------------------------
+// This macro converts an image with float values between 0 and 1 and three channels
+// (background/froreground/cell contours)into an instance segmentation image, in which
+// each cell has a unique label. The segmentation is postprocessed using MorpholibJ
+// watershed postprocessing. To distinguish the cells from the background, it segments
+// the foregroung channel with values >= 0.5.
+// Credits:
+// - DeepImageJ team:
+// 		- Reference: "DeepImageJ: A user-friendly plugin to run deep learning models in ImageJ, 
+// 						E. Gomez-de-Mariscal, C. Garcia-Lopez-de-Haro, et al., bioRxiv 2019.
+// ----------------------------------------------------------------------------------------------
+
 // Rename output image
 rename("output");
 
@@ -5,7 +18,7 @@ rename("output");
 Stack.setDisplayMode("grayscale");
 
 // "argmax"
-setThreshold(0.34, 1.0);
+setThreshold(0.5, 1.0);
 setOption("BlackBackground", true);
 run("Convert to Mask", "method=Mean background=Dark black");
 run("Divide...", "value=255.000 stack");
