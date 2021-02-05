@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------------------------
-// This macro applies a Z-score normalization using specific mean and standard deviation values. 
+// This macro applies a Z-score normalization using the mean and standard deviation values of the input image. Thus the image is normalize to have zero mean and unit standard deviation.
 // Credits:
 // - DeepImageJ team:
 // 		- Reference: 
@@ -7,12 +7,11 @@
 // 		E. Gomez-de-Mariscal, C. Garcia-Lopez-de-Haro, et al., bioRxiv 2019.
 // ----------------------------------------------------------------------------------------------
 
-// Input parameters: set them according to the values in the model.yaml 
-paramMean = 0.23325787;
-paramStd = 0.15511274;
-
-// convert the image into float
+// clip the range of values to the [0,1] range
 run("32-bit");
+getStatistics(_, mean, min, max, std,_);
+print("Mean value:"+mean)
+print("Standard deviation value:"+std)
 // mean normalization
-run("Subtract...", "value="+paramMean);
-run("Divide...", "value="+paramStd);
+run("Subtract...", "value="+mean);
+run("Divide...", "value="+std);
