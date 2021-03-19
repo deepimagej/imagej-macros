@@ -6,8 +6,10 @@
 // 						E. Gomez-de-Mariscal, C. Garcia-Lopez-de-Haro, et al., bioRxiv 2019.
 // ----------------------------------------------------------------------------------------------
 
-getStatistics(_, _, min, max, _, _);
+
+getStatistics(_, _, min, max, _, _);
 // Threshold the output.
-optimalThreshold = 0.5
+optimalThreshold = 0.5;
 setThreshold(optimalThreshold, max);
-run("Convert to Mask");
+setOption("BlackBackground", true);
+run("Convert to Mask", "method=Default background=Dark black");
