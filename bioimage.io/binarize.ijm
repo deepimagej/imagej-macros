@@ -3,7 +3,7 @@
 // Credits:
 // - DeepImageJ team:
 // 		- Reference: "DeepImageJ: A user-friendly plugin to run deep learning models in ImageJ, 
-// 						E. Gomez-de-Mariscal, C. Garcia-Lopez-de-Haro, et al., bioRxiv 2019.
+// 	E. Gomez-de-Mariscal, C. Garcia-Lopez-de-Haro, et al., bioRxiv 2019.
 // ----------------------------------------------------------------------------------------------
 
 
