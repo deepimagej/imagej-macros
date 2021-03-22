@@ -10,8 +10,8 @@
 // - mode: per_sample (percentiles are computed for each sample individually), per_dataset (percentiles are computed for the entire dataset).
 //	   For a fixed scaling use `scale linear`
 // - axes the subset of axes to normalize jointly. For example xy to normalize the two image axes for 2d data jointly. The batch axis (b) is not valid here.
-// - min_percentile the lower percentile used for normalization, in range 0 to 1.
-// - max_percentile the upper percentile used for normalization, in range 0 to 1. Has to be bigger than upper_percentile.
+// - min_percentile the lower percentile used for normalization, in range 0 to 100.
+// - max_percentile the upper percentile used for normalization, in range 1 to 100. Has to be bigger than upper_percentile.
 
 // Credits of this macro:
 // ----------------------------------------------------------------------------------------------
@@ -22,8 +22,10 @@
 // ----------------------------------------------------------------------------------------------
 
 // Edit these values as desired.
-min_percentile = 0.01;
-max_percentile = 0.998;
+min_percentile = 1;
+max_percentile = 99.8;
+min_percentile = min_percentile/100;
+max_percentile = max_percentile/100;
 nBins = 256; // the larger the more accurate
 
 getDimensions(width, height, channels, slices, frames);
