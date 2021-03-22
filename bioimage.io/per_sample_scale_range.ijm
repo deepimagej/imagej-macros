@@ -50,14 +50,13 @@ function percentile_normalization(min_percentile, max_percentile, nBins){
 			cumHist[i] = cumHist[i] + counts[i];
 		}
 	}
-	// cummulative histogram
+	// cumulative histogram
 	for (i = 1; i < nBins; i++) {
 		cumHist[i] = cumHist[i] + cumHist[i-1];
 		}
 	//normalize the cumulative histogram
 	normCumHist = newArray(nBins);
-	for (i = 0; i < nBins; i++){  normCumHist[i] = cumHist[i]/
-cumHist[nBins - 1]; }
+	for (i = 0; i < nBins; i++){  normCumHist[i] = cumHist[i]/cumHist[nBins - 1]; }
 
 	// find the lower percentile (= min_percentile)
 	target = min_percentile;
