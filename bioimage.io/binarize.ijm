@@ -1,8 +1,8 @@
 // ----------------------------------------------------------------------------------------------
-// This macro calculates a binary mask given a certain threshold. 
+// This macro calculates a binary mask given a certain threshold.
 // Credits:
 // - DeepImageJ team:
-// - Reference: "DeepImageJ: A user-friendly plugin to run deep learning models in ImageJ, 
+// - Reference: "DeepImageJ: A user-friendly plugin to run deep learning models in ImageJ,
 // 	E. Gomez-de-Mariscal, C. Garcia-Lopez-de-Haro, et al., bioRxiv 2019.
 // ----------------------------------------------------------------------------------------------
 

@@ -4,7 +4,7 @@
 //https://github.com/bioimage-io/configuration/blob/master/supported_formats_and_operations.md#preprocessing
 // ----------------------------------------------------------------------------------------------
 // Operation: This macro calculates the 1th and 99.8th percentiles of an image histogram and clips the
-//            intensity values between those two percentiles. The macro computes it for the entire 
+//            intensity values between those two percentiles. The macro computes it for the entire
 //            image regardless the number of channels or dimensions.
 // kwargs
 // - mode: per_sample (percentiles are computed for each sample individually), per_dataset (percentiles are computed for the entire dataset).
@@ -17,7 +17,7 @@
 // ----------------------------------------------------------------------------------------------
 // - Base code from BenTupper http://imagej.1557.x6.nabble.com/Percentile-value-td3690983.html
 // - DeepImageJ team:
-// 		- Reference: "DeepImageJ: A user-friendly plugin to run deep learning models in ImageJ, 
+// 		- Reference: "DeepImageJ: A user-friendly plugin to run deep learning models in ImageJ,
 // 						E. Gomez-de-Mariscal, C. Garcia-Lopez-de-Haro, et al., bioRxiv 2019.
 // ----------------------------------------------------------------------------------------------
 
@@ -26,7 +26,7 @@ min_percentile = 0.01;
 max_percentile = 0.998;
 nBins = 256; // the larger the more accurate
 
-getDimensions(width, height, channels, slices, frames);	
+getDimensions(width, height, channels, slices, frames);
 if (slices==1){
 	axes = 'xy';
 }
@@ -38,11 +38,11 @@ print("with min_percentile: " + min_percentile);
 print("and max_percentile: " + max_percentile);
 
 function percentile_normalization(min_percentile, max_percentile, nBins){
-	
+
 	//initialize the histogram
 	cumHist = newArray(nBins);
 	//move through each slice of the image to obtain the whole histogram
-	getDimensions(width, height, channels, slices, frames);	
+	getDimensions(width, height, channels, slices, frames);
 	for (s = 1; s < slices+1; s++) {
 		setSlice(s);
 		getHistogram(values, counts, nBins);
@@ -64,11 +64,11 @@ function percentile_normalization(min_percentile, max_percentile, nBins){
 	do {
         //print("i=" + i + "  value=" + values[i] + " cumHist= " + cumHist[i] + "  normCumHist= " + 100*normCumHist[i] );
         i = i + 1;
-        
+
 	} while (normCumHist[i] < target)
 	mi = values[i];
 	//print("Lower percentile has value " + mi);
-	
+
 	// find the upper percentile (= max_percentile)
 	target = max_percentile;
 	//i = 0;
@@ -83,7 +83,7 @@ function percentile_normalization(min_percentile, max_percentile, nBins){
 	run("32-bit");
 	run("Subtract...", "value="+mi+" stack");
 	run("Divide...", "value="+diff+" stack");
-	
+
 }
 
 // EXECUTE THE FUNCTION TO THE WHOLE IMAGE
