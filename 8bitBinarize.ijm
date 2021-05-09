@@ -20,5 +20,5 @@ run("8-bit");
 
 // Threshold the output.
 optimalThreshold = 159
-setThreshold(optimalThreshold, 255);
+setThreshold(0, optimalThreshold);
 run("Convert to Mask");
