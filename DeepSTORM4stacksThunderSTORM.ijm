@@ -13,7 +13,7 @@
 workingDir = getDirectory("Choose a directory to store your results");
 tablesDir = workingDir + File.separator + "localization_csv_files";
 File.makeDirectory(tablesDir);
-modelName = "DeepSTORM - ZeroCostDL4Mic - Elias";
+modelName = "DeepSTORM - ZeroCostDL4Mic";
 postprocessing_type = "postprocessing_LocalMaximaSMLM.ijm"; //"postprocessing_AveragedMaximaSMLM.ijm";
 //  Change the name of the image
 rename("input_stack");
