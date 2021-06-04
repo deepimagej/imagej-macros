@@ -13,15 +13,15 @@
 workingDir = getDirectory("Choose a directory to store your results");
 tablesDir = workingDir + File.separator + "localization_csv_files";
 File.makeDirectory(tablesDir);
-modelName = "DeepSTORM - ZeroCostDL4Mic";
+modelName = "Deep-STORM - ZeroCostDL4Mic";
 postprocessing_type = "postprocessing_LocalMaximaSMLM.ijm"; //"postprocessing_AveragedMaximaSMLM.ijm";
 //  Change the name of the image
 rename("input_stack");
-//  Get the dimensions of the image, specially for the z-slices
+//  Get the dimensions of the image
 getDimensions(w, h, channels, slices, frames);
-print("Processing stack of "+ slices + " frames.");
+print("Processing stack of "+ frames + " frames.");
 
-for (i = 1; i < slices+1; i++) {
+for (i = 1; i < frames+1; i++) {
 	
 	// Select the volume
 	selectImage("input_stack");
@@ -34,7 +34,10 @@ for (i = 1; i < slices+1; i++) {
 	
 	// Process each 2D frame with DeepSTORM (check patch and overlap values in the config file)
 	// change the name of the post-processing for a regular local maxima finder
-	run("DeepImageJ Run", "model=[" + modelName + "] preprocessing=preprocessing.ijm postprocessing=" + postprocessing_type + " patch=512 overlap=0 logging=normal");
+	// DeepImageJ 1:
+	//run("DeepImageJ Run", "model=[" + modelName + "] preprocessing=preprocessing.ijm postprocessing=" + postprocessing_type + " patch=512 overlap=0 logging=normal");
+	// DeepImageJ 2:
+	run("DeepImageJ Run", "model=[" + modelName + "] format=Tensorflow preprocessing=[preprocessing.ijm] postprocessing=[" + postprocessing_type + "] axes=Y,X,C tile=2048,2048,1 logging=normal");
 	
 	// Create a table with the coordinates of the local maxima and their value in the output
 	selectWindow("Results");
@@ -69,7 +72,8 @@ print("The results are stored in\n" + workingDir);
 
 // Create a Thunderstorm table
 //-----------------------------------------------------
-thTable = getBoolean("Create ThunderSTORM table");
+//thTable = getBoolean("Create ThunderSTORM table");
+thTable = 1
 if (thTable == 1){
 	close("*");	
 	print("Creating a ThunderSTORM table from\n"+workingDir);
