@@ -17,6 +17,15 @@
 // Get the name of the image to call it
 name=getTitle();
 
+// Upsample the image:
+grid = 2;
+getDimensions(width, height, channels, slices, frames);
+run("Scale...", "x=" + grid + " y=" + grid + " z=1.0 width=" + grid*width + " height=" + grid*height + " depth=" + channels + " interpolation=Bicubic average process create title=upsampled");
+selectWindow(name);
+close();
+selectWindow("upsampled");
+rename(name);
+
 // Isolate the detection probability scores
 run("Make Substack...", "channels=1");
 rename("scores");
