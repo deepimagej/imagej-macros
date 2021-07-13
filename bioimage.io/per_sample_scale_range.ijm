@@ -27,6 +27,14 @@ max_percentile = 99.8;
 min_percentile = min_percentile/100;
 max_percentile = max_percentile/100;
 nBins = 256; // the larger the more accurate
+// Check if the image is RGB
+flag_rgb = 1;
+// Convert the RGB image as a stack of slices so it processes the intensity of each slice.
+if (flag_rgb==1){
+	run("Make Composite");
+	run("Stack to Images");
+	run("Concatenate...", "  title=stack image1=[Red] image2=[Green] image3=[Blue]");
+}
 
 getDimensions(width, height, channels, slices, frames);
 if (slices==1){
@@ -90,3 +98,7 @@ function percentile_normalization(min_percentile, max_percentile, nBins){
 
 // EXECUTE THE FUNCTION TO THE WHOLE IMAGE
 percentile_normalization(min_percentile, max_percentile, nBins);
+// Convert the slices into channel to avoid confussion between 3D and multichannel images.
+if (flag_rgb==1){
+	run("Properties...", "channels=3 slices=1 frames=1 pixel_width=1.0000 pixel_height=1.0000 voxel_depth=1.0000");
+}
