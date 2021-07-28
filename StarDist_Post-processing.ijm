@@ -35,6 +35,7 @@ run("Fire");
 selectWindow(name);
 run("Delete Slice", "delete=channel");
 selectWindow(name);
+run("Properties...", "channels=" + maxOf(channels, slices) - 1 + " slices=1 frames=1 pixel_width=1.0000 pixel_height=1.0000 voxel_depth=1.0000");
 rename("distances");
 run("royal");
 
