@@ -19,6 +19,8 @@ name=getTitle();
 
 // Upsample the image:
 grid = 2;
+probThresh = 0.7;
+nmsThresh = 0.2;
 getDimensions(width, height, channels, slices, frames);
 run("Scale...", "x=" + grid + " y=" + grid + " z=1.0 width=" + grid*width + " height=" + grid*height + " depth=" + maxOf(channels, slices) + " interpolation=Bicubic average process create title=upsampled");
 selectWindow(name);
@@ -40,8 +42,6 @@ rename("distances");
 run("royal");
 
 // Run StarDist plugin
-probThresh = 0.7
-nmsThresh = 0.2
 run("Command From Macro", "command=[de.csbdresden.stardist.StarDist2DNMS], args=['prob':'scores', 'dist':'distances', 'probThresh':'" + probThresh + "', 'nmsThresh':'" + nmsThresh + "', 'outputType':'Both', 'excludeBoundary':'2', 'roiPosition':'Stack', 'verbose':'false'], process=[false]");
 
 
