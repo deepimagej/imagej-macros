@@ -27,8 +27,9 @@ max_percentile = 99.8;
 min_percentile = min_percentile/100;
 max_percentile = max_percentile/100;
 nBins = 256; // the larger the more accurate
+
 // Check if the image is RGB
-flag_rgb = 1;
+flag_rgb = !is("grayscale"); // "RGB = NOT (grayscale)"
 // Convert the RGB image as a stack of slices so it processes the intensity of each slice.
 if (flag_rgb==1){
 	run("Make Composite");
