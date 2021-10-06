@@ -3,7 +3,7 @@
 // mean normalization using specific mean and standard deviation values. 
 // Credits:
 // - DeepImageJ team:
-// 		- Reference: DeepImageJ: A user-friendly plugin to run deep learning models in ImageJ,
+// 		- Reference: DeepImageJ: A user-friendly environment to run deep learning models in ImageJ,
 // 			     Gómez-de-Mariscal, E., García-López-de-Haro, C., Ouyang, W. et al.,
 //             	             Nat Methods 18, 1192–1195 (2021). https://doi.org/10.1038/s41592-021-01262-9
 // ----------------------------------------------------------------------------------------------
