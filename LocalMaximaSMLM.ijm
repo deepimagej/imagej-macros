@@ -4,7 +4,7 @@
 // This code is a replication the post-processing at Deep-STORM_2D_ZeroCostDL4Mic notebook.
 // Credits:
 // - ZeroCostDL4Mic: Lucas von Chamier, et al., bioRxiv 2020.
-// - DeepImageJ: E. Gomez-de-Mariscal, C. Garcia-Lopez-de-Haro, et al., bioRxiv 2019.
+// - DeepImageJ: Gómez-de-Mariscal, E., García-López-de-Haro, C., Ouyang, W. et al., Nat Methods 18, 1192–1195 (2021).
 // ----------------------------------------------------------------------------------------------
 
 // PARAMS BY DEFAULT (same variables in the notebook)
