@@ -4,7 +4,7 @@
 // Credits:
 // - DeepImageJ team:
 // 		- Reference: DeepImageJ: A user-friendly environment to run deep learning models in ImageJ,
-// 			     Gómez-de-Mariscal, E., García-López-de-Haro, C., Ouyang, W. et al.,
+// 			     E. Gómez-de-Mariscal, C. García-López-de-Haro, W. Ouyang, L. Donati, E. Lundberg, M. Unser, A. Muñoz-Barrutia, D. Sage,
 //             	             Nat Methods 18, 1192–1195 (2021). https://doi.org/10.1038/s41592-021-01262-9
 // ----------------------------------------------------------------------------------------------
 
