@@ -1,10 +1,10 @@
 // ----------------------------------------------------------------------------------------------
 // This macro converts an image with float values between 0 and 1 into an 8-bit image.
-// Then it calculates a binary mask given a certain threshold. 
+// Then it calculates a binary mask given a certain threshold.
 // Credits:
-// - DeepImageJ team:
-// 		- Reference: "DeepImageJ: A user-friendly plugin to run deep learning models in ImageJ, 
-// 						E. Gomez-de-Mariscal, C. Garcia-Lopez-de-Haro, et al., bioRxiv 2019.
+// 		- Reference: DeepImageJ: A user-friendly environment to run deep learning models in ImageJ,
+// 			     E. Gómez-de-Mariscal, C. García-López-de-Haro, W. Ouyang, L. Donati, E. Lundberg, M. Unser, A. Muñoz-Barrutia, D. Sage,
+//             	             Nat Methods 18, 1192–1195 (2021). https://doi.org/10.1038/s41592-021-01262-9
 // ----------------------------------------------------------------------------------------------
 
 // clip the range of values to the [0,1] range
