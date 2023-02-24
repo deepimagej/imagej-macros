@@ -13,3 +13,4 @@ optimalThreshold = 0.5;
 setThreshold(optimalThreshold, max);
 setOption("BlackBackground", true);
 run("Convert to Mask", "method=Default background=Dark black");
+run("Divide...", "value=255");
